@@ -18,6 +18,8 @@ please consult our Course Syllabus.
 
 This file is Copyright (c) 2024 CSC111 Teaching Team
 """
+# TODO: MAKE SURE TO WRITE COMPLETE DOCSTRINGS, PRECONDITIONS, AND REPRESENTATION INVARIANTS
+
 from typing import Optional, TextIO
 
 
@@ -171,9 +173,28 @@ class World:
         then load_map should assign this World object's map to be [[1, 2, 5], [3, -1, 4]].
 
         Return this list representation of the map.
+
+        >>> sample_map_data = open("map.txt")
+        >>> sample_location_data = open("locations.txt")
+        >>> sample_items_data = open("items.txt")
+        >>> sample_world = World(sample_map_data, sample_location_data, sample_items_data)
+        >>> sample_world.map == [[-1, 11, 9, 10, -1], [-1, -1, 8, -1, -1], [7, 6, 4, 5, -1], [-1, -1, 3, 2, 1]]
+        True
+        >>> sample_map_data.close()
+        >>> sample_location_data.close()
+        >>> sample_items_data.close()
         """
 
         # TODO: Complete this method as specified. Do not modify any of this function's specifications.
+        map_list = []
+        for line in map_data:
+            row = list(map(int, line.split()))  # this line converts string of integers into list of ints
+            # print(row)
+            map_list.append(row)
+        # print(map_list)
+        # print(map_list)
+        return map_list
+
 
     # TODO: Add methods for loading location data and item data (see note above).
 
