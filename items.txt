@@ -1,1 +1,6 @@
-1 10 5 Cheat Sheet
+7 1 20 T-card
+10 1 20 Lucky Pen
+11 1 20 Cheat Sheet
+4 6 10 Bahen Key
+7 -1 0 Ice Cream Sandwich
+8 5 10 Flowers
