@@ -156,6 +156,7 @@ class World:
 
         # The map MUST be stored in a nested list as described in the load_map() function's docstring below
         self.map = self.load_map(map_data)
+        self.location_map = self.load_locations(location_data)
 
         # NOTE: You may choose how to store location and item data; create your own World methods to handle these
         # accordingly. The only requirements:
@@ -185,16 +186,20 @@ class World:
         >>> sample_items_data.close()
         """
 
-        # TODO: Complete this method as specified. Do not modify any of this function's specifications.
         map_list = []
         for line in map_data:
             row = list(map(int, line.split()))  # this line converts string of integers into list of ints
             # print(row)
             map_list.append(row)
-        # print(map_list)
-        # print(map_list)
         return map_list
 
+    def load_locations(self, location_data: TextIO) -> dict[int, Location]:
+        """
+        given a file containing location data, return a mapping of the location
+        number to the corresponding Location class
+
+        # TODO: is this method necessary or is there another way to go from location number to Location class?
+        """
 
     # TODO: Add methods for loading location data and item data (see note above).
 
@@ -203,6 +208,10 @@ class World:
         """Return Location object associated with the coordinates (x, y) in the world map, if a valid location exists at
          that position. Otherwise, return None. (Remember, locations represented by the number -1 on the map should
          return None.)
+
+         Preconditions:
+         - 0 <= x < len(self.map[0])
+         - 0 <= y < len(self.map)
         """
 
         # TODO: Complete this method as specified. Do not modify any of this function's specifications.

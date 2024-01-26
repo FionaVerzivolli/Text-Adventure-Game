@@ -1,26 +1,123 @@
 LOCATION -1
 0
 That way is blocked.
+
 That way is blocked.
 END
 
-LOCATION 1
+LOCATION 1 Exam Centre
 0
-You are on the first floor of the Robarts Library. There is an empty study room to the South, an exit from the library to the East.
-You are on the first floor of the Robarts Library. It's usually crowded at this time of the day, but today it's eerily quiet.
-Only a few students are studying inside one of the study rooms. You better not disturb them. A librarian stands near the
-service desk, looking bored and sleepy. There is an empty study room to the South, an exit from the library to the East.
+You enter the exam room, you need your T-card, lucky pen, and cheat sheet to 'ENTER' the CSC111 exam hall. To your west
+you see the College Street intersection
+
+You enter the exam centre ready to write your CSC111 exam, but a sense of dread fills you. You realize that you have
+forgetten to bring your T-card, and the proctor won't let you in without it. Moreover, you misplaced your lucky exam
+pen, you cannot possibly write without it. You also need your cheat sheet but you've misplaced that as well. You must
+look around campus to find the three items and return to the exam centre as soon as possible! To your west , you see
+the College Street intersection.
 END
 
-LOCATION 2
+LOCATION 2 College Street Intersection
 0
-This study room is completely empty.
-You are in an empty study room. And by empty, we mean, absolutely empty. All the tables and chairs have been taken out,
-the whiteboards taken off the wall, not even the carpeting is left. Are they planning to do something else with this space?
+You are at an intersection on College street, you must be careful not to cross on a red light or a car will hit you!
+However, you sense you are running out of time... To your west is main College Street, to your north is the Wallberg CS
+lecture building, and to your east is the exam centre.
+
+You are at an intersection College street. There is a traffic light here, and you see cars zooming around. If the light
+is red, you know you better not cross, but at the same time, you don't know how long you can wait for the light to turn
+green with an impending exam... To your west is main College Street, to your north is the Wallberg CS
+lecture building, and to your east is the exam centre.
 END
 
-LOCATION 3
+LOCATION 3 Main College Street
 0
-You are outside the Robarts library.
-You are outside the Robarts library on a crowded street. There is a smell of coffee in the air.
+You are at Main College Street where you spot a suspicious man rambling about some magic pen. He says that he wants ice
+cream for information about this pen. To your north is Saint George Street, and to your east is College street
+intersection.
+
+You are at Main College Street where you spot a suspicious man rambling about some magic pen. He says that he was about
+to fail in MAT137 exam when this magic pen fell onto his lap, encoding all the correct proofs into his head. He says he
+has now lost the pen but will tell you where he last left it if you give him some ice cream...
+To your north is Saint George Street, and to your east is College street intersection.
+END
+
+LOCATION 4 Saint George Street intersection
+0
+You are on Saint George street. You notice a suspicious garbage can. To your north continues Saint George street where
+you see a man selling flowers, to your west is Bahen, to your east is Wallberg, and to your south is College street.
+
+You are on Saint George street. You notice a suspicious garbage can, you think it might be worth looking into. To your
+north continues Saint George street where you see a man selling flowers, maybe you can surprise someone with them, to
+your west is Bahen, to your east is Wallberg, and to your south is College street.
+END
+
+LOCATION 5 Wallberg CS Lecture Building
+0
+You enter Wallberg building, You see professor Fairgrieve. To your west is Saint George Street, to your south is the
+College street intersection.
+
+You enter Wallberg building to the CS lecture hall where you see Tom Fairgrieve. Tom looks contemplative, you wonder if
+you could get him something to cheer him up, maybe he will give you some useful information in return. To your west is
+Saint George Street, to your south is the College street intersection.
+END
+
+LOCATION 6 Bahen Centre for Information Technology
+0
+You enter Bahen, you hope that you can find one of you lost items here. To your west is the CSSU lounge, and to your
+east is Saint George Street
+
+You enter Bahen Centre for Information technology. You hope that you can find one of you lost items here. You see the
+CSSU lounge room to your west but it is unfortunately locked, you think you remember leaving something in there, but
+how to get in.. To your east is Saint George Street.
+END
+
+LOCATION 7 CSSU Lounge
+0
+You enter the CSSU lounge, where you found your Tcard. You see a fridge full of ice cream sandwiches here, you need
+them to sustain you during your journey. To your east is Bahen.
+
+You enter the CSSU lounge and to your utter glee, you find your lost Tcard in there. You also notice a fridge that has
+the CSSU's famous ice cream sandwiches, no one's watching, you think you can take as many of these ice creams as you
+want. They nourish you during your arduous journey to find all your goods. To your east is the main Bahen area.
+END
+
+LOCATION 8 Saint George Street marketplace
+0
+you enter the Saint George Street marketplace, you see a kind gentleman selling flowers to anyone who can exchange him
+some ice cream in return. To your north is Saint George Street end, to your south is Saint George Street intersection.
+
+you enter the Saint George Street marketplace, you see a kind gentleman selling flowers to anyone who can exchange him
+some ice cream in return. You wonder if those flowers could be given to someone.. To your north is Saint George Street
+end, to your south is Saint George Street intersection.
+END
+
+LOCATION 9 Saint George Street end
+0
+You are at the end of Saint George Street, to your west is McLennan Physical laboratories and to your right is Myhal
+Centre.
+
+You are at the end of Saint George Street, to your west is McLennan Physical laboratories and to your right is Myhal
+Centre.
+END
+
+LOCATION 10 Myhal Centre
+0
+You enter Myhal, you know for sure that you left your pen here but you really wonder where. !!Talking to sus guy starts
+gives a contextual clue when you enter. someone could guess the correct instructions, but talking to the guy makes it
+easier!!
+
+You enter Myhal, you suddenly realize that you did a hackathon here and this is where you lost your lucky pen. You
+can't seem to find it anywhere you look so you wonder if giving icecream to someone would make them help you out..
+To your west is Saint George Street end.
+END
+
+LOCATION 11 McLennan Laboratories
+0
+You enter McLennan and you see professor Ilia Gaiur with your cheat sheet, he says he will only give it to you if you
+answer a math question for him.. To your east is Saint George Street end.
+
+You enter McLennan Physical laboratories where you see your math professor, Ilia Gaiur. He holds your cheat sheet in
+with a sly smile and tells you he will give you your cheat sheet if you answer a math problem correctly. You're sure
+you could probably guess it, but getting some advice from another professor might help out.. To your east is Saint
+George street end
 END

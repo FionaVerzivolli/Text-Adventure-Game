@@ -18,6 +18,8 @@ please consult our Course Syllabus.
 This file is Copyright (c) 2024 CSC111 Teaching Team
 """
 
+# TODO: MAKE SURE TO WRITE COMPLETE DOCSTRINGS, PRECONDITIONS, AND REPRESENTATION INVARIANTS
+
 # Note: You may add in other import statements here as needed
 from game_data import World, Item, Location, Player
 
