@@ -334,7 +334,7 @@ class World:
             int_to_location_dict[new_location.location_num] = new_location
         return int_to_location_dict
 
-    # TODO: Add methods for loading location data and item data (see note above).
+    # TODO: Add methods for loading item data (see note above).
 
     # NOTE: The method below is REQUIRED. Complete it exactly as specified.
     def get_location(self, x: int, y: int) -> Optional[Location]:
@@ -350,16 +350,18 @@ class World:
         >>> sample_location = open("locations.txt")
         >>> sample_items = open("items.txt")
         >>> world = World(sample_map, sample_location, sample_items)
-        >>> world.get_location(1, 1)
-        None
+        >>> world.get_location(1, 1) is None
+        True
+        >>> world.get_location(1, 2) == world.int_to_location_dict[6]
+        True
+
         """
 
-        map = self.load_map
+        game_map = self.map
+        # print(map)
         locations = self.int_to_location_dict
 
-        for location in locations:
-            print(location)
-            print(locations[location].short_desc)
-            if self.map[y][x] == locations[location].location_num and locations[location].location_num != -1:
-                return locations[location]
+        map_location = game_map[y][x]
+        if map_location != -1:
+            return locations[map_location]
         return None
