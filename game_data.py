@@ -27,13 +27,20 @@ class Location:
     """A location in our text adventure game world.
 
     Instance Attributes:
-        - # TODO
+        - location_num: an integer representing the location's number on map.txt
+        - num_points: integer for the points you get for entering a location for the first time
+        - short_desc: a string for the short description of the location
+        - long_desc: a string for the long description of the location
+        - num_visited: an integer representing the number of times this location is visited
+        - player_choices: a list of strings representing possible player choices
+        - items: a list of strings representing the items in the location
+
 
     Representation Invariants:
         - # TODO
     """
 
-    def __init__(self) -> None:
+    def __init__(self, location_num: int, num_points: int, short_desc: str, long_desc: str, num_visited: int) -> None:
         """Initialize a new location.
 
         # TODO Add more details here about the initialization if needed
@@ -56,6 +63,13 @@ class Location:
         # All locations in your game MUST be represented as an instance of this class.
 
         # TODO: Complete this method
+        self.location_num = location_num
+        self.num_points = num_points
+        self.short_desc = short_desc
+        self.long_desc = long_desc
+        self.num_visited = num_visited
+        # self.player_choices = player_choices
+        # self.items = items
 
     def available_actions(self):
         """
@@ -102,7 +116,7 @@ class Item:
 
 class Player:
     """
-    A Player in the text advanture game.
+    A Player in the text adventure game.
 
     Instance Attributes:
         - # TODO
@@ -124,6 +138,63 @@ class Player:
         self.y = y
         self.inventory = []
         self.victory = False
+
+    def text_parsing_movement(self, choice) -> None:
+        """
+        Function method used to update a player's position based off of the
+        player's input
+
+        >>> player = Player(1, 1)
+        >>> player.text_parsing_movement('move south')
+        >>> player.x
+        1
+        >>> player.y
+        0
+
+        >>> player2 = Player(0, 1)
+        >>> player2.text_parsing_movement('s outh')
+        >>> player2.x
+        0
+        >>> player2.y
+        0
+
+        >>> player3 = Player(1, 1)
+        >>> player3.text_parsing_movement('anorth')
+        >>> player3.x
+        1
+        >>> player3.y
+        2
+
+       e Attributes:
+        - choice: str
+        """
+        # Implemented by: Fiona
+        initial_x = self.x  # keep track of initial x and y
+        initial_y = self.y
+        case_gone = choice.lower()
+        keyword_count = 0  # keep track of the number of keywords
+        if "north" in case_gone or "n" in case_gone:  # check if a keyword is mentioned
+            self.y += 1
+            keyword_count += 1
+        if "south" in case_gone or "s" in case_gone:
+            keyword_count += 1
+            self.y -= 1
+        if "east" in case_gone or "s" in case_gone:
+            keyword_count += 1
+            self.x += 1
+        if "west" in case_gone or "w" in case_gone:
+            keyword_count += 1
+            self.x += 1
+
+        if keyword_count == 0:  # loop if there are no keywords
+            choice_2 = input("Please enter a valid input.")
+            self.text_parsing_movement(choice_2)
+
+        elif keyword_count > 1:  # loop if there is more than one keyword
+            choice_2 = input("Please enter an input with only one direction.")
+            self.text_parsing_movement(choice_2)
+            self.x = initial_x
+            self.y = initial_y
 
 
 class World:
@@ -155,8 +226,9 @@ class World:
         # BUT DO NOT RENAME OR REMOVE ANY EXISTING METHODS/ATTRIBUTES IN THIS CLASS
 
         # The map MUST be stored in a nested list as described in the load_map() function's docstring below
+
         self.map = self.load_map(map_data)
-        self.location_map = self.load_locations(location_data)
+        self.int_to_location_dict = self.load_locations(location_data)
 
         # NOTE: You may choose how to store location and item data; create your own World methods to handle these
         # accordingly. The only requirements:
@@ -165,6 +237,7 @@ class World:
 
     # NOTE: The method below is REQUIRED. Complete it exactly as specified.
     def load_map(self, map_data: TextIO) -> list[list[int]]:
+        # Implemented by: Naoroj
         """
         Store map from open file map_data as the map attribute of this object, as a nested list of integers like so:
 
@@ -194,12 +267,72 @@ class World:
         return map_list
 
     def load_locations(self, location_data: TextIO) -> dict[int, Location]:
+        # TODO: when you change the value of points in locations.txt or whatever else, ensure that
+        # the doctests match
+        # be very careful about locations.txt file structure,
+        # Done by: Naoroj
         """
-        given a file containing location data, return a mapping of the location
-        number to the corresponding Location class
+        given a file containing location data, return a dictionary mapping the location number in map.txt
+        to the corresponding Location class.
 
-        # TODO: is this method necessary or is there another way to go from location number to Location class?
+        the method goes on the assumption that a line is the location + num, points, short desc (multiple lines),
+        long desc (multiple lines), and END
+
+        >>> sample_map_data = open("map.txt")
+        >>> sample_location_data = open("locations.txt")
+        >>> sample_items_data = open("items.txt")
+        >>> sample_world = World(sample_map_data, sample_location_data, sample_items_data)
+        >>> sample_check = sample_world.int_to_location_dict
+        >>> sample_check[-1].short_desc.strip()
+        'That way is blocked.'
+        >>> sample_check[10].num_visited
+        0
+        >>> sample_check[9].long_desc.strip()
+        'You are at the end of Saint George Street, to your west is McLennan Physical laboratories and to your right is Myhal Centre.'
+        >>> sample_map_data.close()
+        >>> sample_location_data.close()
+        >>> sample_items_data.close()
         """
+
+        int_to_location_dict = {}
+        line = location_data.readline()  # this reads in junk data to start
+
+        while line.strip() != 'COMPLETE_END':
+            new_location = Location(0, 0, '', '', 0)
+
+            line = location_data.readline()
+            assert 'LOCATION' in line
+            line = line.split()
+            new_location.location_num = int(line[1])
+            line = location_data.readline()
+
+            assert 'NUM_POINTS' in line
+            line = line.split()
+            new_location.num_points = int(line[1])
+            line = location_data.readline()
+
+            assert line.strip() == '-SHORT'  # sequence of lines for short and long sec
+            line = location_data.readline()
+            short_desc, long_desc = '', ''
+
+            while line.strip() != '-LONG':
+                short_desc += line.strip() + ' '
+                line = location_data.readline()
+
+            new_location.short_desc = short_desc.strip()
+
+            assert line.strip() == '-LONG'
+            line = location_data.readline()
+            while line.strip() != 'END':
+                long_desc += line.strip() + ' '
+                line = location_data.readline()
+                # print(line + ' 1234')
+            new_location.long_desc = long_desc.strip()
+
+            assert line.strip() == 'END'
+            line = location_data.readline()
+            int_to_location_dict[new_location.location_num] = new_location
+        return int_to_location_dict
 
     # TODO: Add methods for loading location data and item data (see note above).
 
@@ -212,6 +345,21 @@ class World:
          Preconditions:
          - 0 <= x < len(self.map[0])
          - 0 <= y < len(self.map)
+
+        >>> sample_map = open("map.txt")
+        >>> sample_location = open("locations.txt")
+        >>> sample_items = open("items.txt")
+        >>> world = World(sample_map, sample_location, sample_items)
+        >>> world.get_location(1, 1)
+        None
         """
 
-        # TODO: Complete this method as specified. Do not modify any of this function's specifications.
+        map = self.load_map
+        locations = self.int_to_location_dict
+
+        for location in locations:
+            print(location)
+            print(locations[location].short_desc)
+            if self.map[y][x] == locations[location].location_num and locations[location].location_num != -1:
+                return locations[location]
+        return None
