@@ -39,7 +39,7 @@ class Location:
     def __init__(self, location_num: int, num_points: int, short_desc: str, long_desc: str, num_visited: int) -> None:
         """Initialize a new location.
 
-        # TODO Add more details here about the initialization if needed
+        # TODO Add preconditions/more details here about the initialization if needed
         """
 
         # NOTES:

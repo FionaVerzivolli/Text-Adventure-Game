@@ -18,3 +18,28 @@ please consult our Course Syllabus.
 
 This file is Copyright (c) 2024 CSC111 Teaching Team
 """
+
+class NPC:
+  """An npc in our text adventure game world.
+
+    Instance Attributes:
+        - 
+        -
+        - 
+        - 
+
+    Representation Invariants:
+        - 
+        - 
+        - 
+        - 
+    """
+  def dialogue(self):
+    raise NotImplementedError
+  
+  
+class math_professor:
+  pass
+
+class cs_professor: 
+  pass

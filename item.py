@@ -23,7 +23,10 @@ class Item:
     """An item in our text adventure game world.
 
     Instance Attributes:
-        - # TODO
+        - name: a string representing the item's name
+        - start: an integer representing the item's starting location
+        - end: an integer representing where the item should be stored for credit
+        - target_points: an 
 
     Representation Invariants:
         - len(self.name) > 0
@@ -49,3 +52,13 @@ class Item:
         self.start_position = start
         self.target_position = target
         self.target_points = target_points
+
+
+class Tcard:
+    pass
+
+class LuckyPen:
+    pass
+
+class Cheatsheet:
+    pass

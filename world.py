@@ -53,16 +53,16 @@ class World:
 
         self.map = self.load_map(map_data)
         self.location_dict = self.load_locations(location_data)
-        self.item_dict = self.load_items
+        # self.item_dict = self.load_items(items_data)
 
         # NOTE: You may choose how to store location and item data; create your own World methods to handle these
         # accordingly. The only requirements:
         # 1. Make sure the Location class is used to represent each location.
         # 2. Make sure the Item class is used to represent each item.
 
-    # NOTE: The method below is REQUIRED. Complete it exactly as specified.
     def load_map(self, map_data: TextIO) -> list[list[int]]:
         # Implemented by: Naoroj
+        # NOTE: The method below is REQUIRED. Complete it exactly as specified.
         """
         Store map from open file map_data as the map attribute of this object, as a nested list of integers like so:
         If map_data is a file containing the following text:
@@ -144,6 +144,14 @@ class World:
             line = location_data.readline()
             location_dict[new_location.location_num] = new_location
         return location_dict
+  
+    def load_items(self, item_data: TextIO) -> dict[str, Item]:
+        """
+        return a dictionary mapping item names as a string to the associated item object
+        """
+        item_dict = {}
+        line = item_data.readline()
+
 
     # NOTE: The method below is REQUIRED. Complete it exactly as specified.
     def get_location(self, x: int, y: int) -> Optional[Location]:
@@ -163,9 +171,11 @@ class World:
         >>> world.get_location(1, 2) == world.location_dict[6]
         True
         """
-        game_map = self.map
+        # print(y, x)
+        # print(self.map)
+        # print(self.map[3][4])
         locations = self.location_dict
-        map_location = game_map[y][x]
+        map_location = self.map[y][x]
         if map_location != -1:
             return locations[map_location]
         return None
