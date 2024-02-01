@@ -20,8 +20,29 @@ This file is Copyright (c) 2024 CSC111 Teaching Team
 """
 
 class Item:
-    """An item in our text adventure game world.
+    """An item in our text adventure game world."""
+    def use(self) -> None:
+        raise NotImplementedError
 
+class Tcard:
+    pass
+
+class LuckyPen:
+    pass
+
+class Cheatsheet:
+    pass
+
+class Bahen_key:
+    pass
+
+class IceCreamSandwich:
+    pass
+
+class Flowers:
+    pass 
+
+"""
     Instance Attributes:
         - name: a string representing the item's name
         - start: an integer representing the item's starting location
@@ -33,11 +54,10 @@ class Item:
         - self.start != -1
         - self.end != -1
         - target_points > 0
-    """
 
     def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
-        """Initialize a new item.
-        """
+Initialize a new item.
+
 
         # NOTES:
         # This is just a suggested starter class for Item.
@@ -54,11 +74,4 @@ class Item:
         self.target_points = target_points
 
 
-class Tcard:
-    pass
-
-class LuckyPen:
-    pass
-
-class Cheatsheet:
-    pass
+"""
