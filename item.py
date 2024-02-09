@@ -20,58 +20,169 @@ This file is Copyright (c) 2024 CSC111 Teaching Team
 """
 
 class Item:
-    """An item in our text adventure game world."""
-    def use(self) -> None:
+    """An item in our text adventure game world.
+       
+        Representation Invariants:
+        - self.start_location is not None
+        - self.end_location is not None
+        - self.name is not None
+        - self.name is not ''
+        - self.points >= 0
+        """
+    def __init__(self,start_location: int, end_location: int, points: int, name: str):
+        """Method that creates an item object 
+        Preconditions:
+            - -1 <= start_location <= 11
+            - -1 <= end_location <= 11
+            - points >= 0
+            - name != ''
+        """
+        self.start_location = start_location 
+        self.end_location = end_location
+        self.points = points
+        self.name = name
+
+    def print_statement(self, used_successfully: bool) -> None:
         raise NotImplementedError
 
-class Tcard:
-    pass
+class Key(Item): 
+    """A key item in our text adventure game world."""
 
-class LuckyPen:
-    pass
+    def __init__(self, start_location: int, end_location: int, points: int, name: str):
+        """Initialize our key 
+        Preconditions:
+            - -1 <= start_location <= 11
+            - -1 <= start_location <= 11
+            - points >= 0
+            - name != ''
+            """
+        # initalize our item
+        super().__init__(start_location, end_location, points, name)
+    
 
-class Cheatsheet:
-    pass
+    def print_statement(self, used_successfully: bool) -> None:
+        """Determine whether our key has been used successfully"""
 
-class Bahen_key:
-    pass
+        if used_successfully:
+            print('You have used key successfully! \n')
+            print('You have unlocked the CSSU lounge \n')
+        else:
+            print('You cannot use the key here! \n')
 
-class IceCreamSandwich:
-    pass
+class T_card(Item):
+    """Our T-card item and functionalities. """
 
-class Flowers:
-    pass 
+    def __init__(self, start_location: int, end_location: int, points: int, name: str):
+        """Initialize our T-Card object 
+          Preconditions:
+            - -1 <= start_location <= 11
+            - -1 <= start_location <= 11
+            - points >= 0
+            - name != ''"""
+        super().__init__(start_location, end_location, points, name)
+    
+    def print_statement(self, used_successfully: bool) -> None:
+        if used_successfully:
+            print('You have deposited your t-card in successfully! \n')
+        else:
+            print('You cannot deposited your t-card here! \n')
 
-"""
-    Instance Attributes:
-        - name: a string representing the item's name
-        - start: an integer representing the item's starting location
-        - end: an integer representing where the item should be stored for credit
-        - target_points: an 
+class Lucky_pen(Item):
+    """Our lucky-pen item. """
+    def __init__(self, start_location: int, end_location: int, points: int, name: str):
+        """ Create our T-Card object.
+         Preconditions:
+            - -1 <= start_location <= 11
+            - -1 <= start_location <= 11
+            - points >= 0
+            - name != ''"""
+        super().__init__(start_location, end_location, points, name)
+    
+    def print_statement(self, used_successfully: bool) -> None:
+        if used_successfully:
+            print('You have deposited your lucky pen in successfully! \n')
+        else:
+            print('You cannot deposited your lucky pen here! \n')
 
-    Representation Invariants:
-        - len(self.name) > 0
-        - self.start != -1
-        - self.end != -1
-        - target_points > 0
+class Cheatsheet(Item):
+    """Our Cheatsheet item """
+    def __init__(self, start_location: int, end_location: int, points: int, name: str):
+        """Create our cheat-sheet object.
+          Preconditions:
+            - -1 <= start_location <= 11
+            - -1 <= start_location <= 11
+            - points >= 0
+            - name != ''
+             """
+        super().__init__(start_location, end_location, points, name)
+    
+    def print_statement(self, used_successfully: bool) -> None:
+        if used_successfully:
+            print('You have deposited your cheat sheet in successfully! \n')
+        else:
+            print('You cannot deposited your cheat sheet here! \n')
 
-    def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
-Initialize a new item.
+class IceCreamSandwich(Item):
+    """Our icecream sandwich item."""
+    def __init__(self, start_location: int, end_location: int, points: int, name: str):
+        """Create our icecream-sandwich object.
+          Preconditions:
+            - -1 <= start_location <= 11
+            - -1 <= start_location <= 11
+            - points >= 0
+            - name != ''
+        """
+        super().__init__(start_location, end_location, points, name)
+    
+    def print_statement(self, used_successfully: bool) -> None:
+        if used_successfully:
+            print('You have given your ice cream successfully! \n')
+            print('The suspicious man tells you to SEARCH the rocket in Myhal center for your lucky pen \n')
+        else:
+            print('You cannot give your ice cream here! \n')
+
+class Flowers(Item):
+    """ Our Flowers item"""
+    def __init__(self, start_location: int, end_location: int, points: int, name: str):
+        """Create our flowers object.
+          Preconditions:
+            - -1 <= start_location <= 11
+            - -1 <= start_location <= 11
+            - points >= 0
+            - name != ''
+        """
+        super().__init__(start_location, end_location, points, name)
+    
+    def print_statement(self, used_successfully: bool) -> None:
+        if used_successfully:
+            print('You have given your flowers successfully! \n')
+            print('Fairgrieve tells you that the answer to Ilias riddle is 42 \n')
+        else:
+            print('You cannot give your flowers here! \n')
 
 
-        # NOTES:
-        # This is just a suggested starter class for Item.
-        # You may change these parameters and the data available for each Item object as you see fit.
-        # (The current parameters correspond to the example in the handout).
-        # Consider every method in this Item class as a "suggested method".
-        #
-        # The only thing you must NOT change is the name of this class: Item.
-        # All item objects in your game MUST be represented as an instance of this class.
 
-        self.name = name
-        self.start_position = start
-        self.target_position = target
-        self.target_points = target_points
+class ItemFactory:
+    """ Store all our items and their classes """
+
+    item_classes = {
+        'Key': Key,
+        'T_card': T_card,
+        'Lucky_pen': Lucky_pen,
+        'Cheatsheet': Cheatsheet,
+        'IceCreamSandwich': IceCreamSandwich,
+        'Flowers': Flowers
+    }
+
+    
+    @staticmethod
+    def create_item(start_location: int, end_location: int, points: int, name: str) -> Item:
+        """Method that creates an item, similar to the methods of our previous class"""
+        # create the item
+        item_class = ItemFactory.item_classes.get(name, Item)
+        # return our item
+        return item_class(start_location, end_location, points, name)
 
 
-"""
+
+

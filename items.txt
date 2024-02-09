@@ -1,7 +1,7 @@
-#JUNK#
-7 1 20 T-card
-10 1 20 Lucky Pen
-11 1 20 Cheat Sheet
-4 6 10 Bahen Key
-7 -1 0 Ice Cream Sandwich
+7 1 20 T_card
+10 1 20 Lucky_pen
+11 1 20 Cheatsheet
+4 6 10 Key
+7 4 0 IceCreamSandwich
 8 5 10 Flowers
+END

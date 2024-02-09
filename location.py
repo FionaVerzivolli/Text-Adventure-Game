@@ -19,8 +19,10 @@ please consult our Course Syllabus.
 This file is Copyright (c) 2024 CSC111 Teaching Team
 """
 
+from item import Item
+
 class Location:
-    """A location in our text adventure game world.
+    """A location object in our text adventure game world.
 
     Instance Attributes:
         - location_num: an integer representing the location's number on map.txt
@@ -29,52 +31,24 @@ class Location:
         - long_desc: a string for the long description of the location
         - num_visited: an integer representing the number of times this location is visited
 
-    Representation Invariants:
-        - self.num_points >= 0
-        - len(self.short_desc) > 0
-        - len(self.long_desc) > 0
-        - self.num_visited >= 0
+
     """
 
-    def __init__(self, location_num: int, num_points: int, short_desc: str, long_desc: str, num_visited: int) -> None:
+    def __init__(self, location_num: int, num_points: int, short_desc: str, long_desc: str, visited: bool, locked: bool, searchable: bool, available_items: list[str]) -> None:
         """Initialize a new location.
 
-        # TODO Add preconditions/more details here about the initialization if needed
+        Representation Invariants:
+            - self.num_points >= 0
+            - len(self.short_desc) > 0 and len(self.short_desc) < len(self.long_desc)
+            - self.num_visited >= 0
+            - self.location_num -1 <= 0 <= 11
         """
 
-        # NOTES:
-        # Data that could be associated with each Location object:
-        # a position in the world map,
-        # a brief description,
-        # a long description,
-        # a list of available commands/directions to move,
-        # items that are available in the location,
-        # and whether the location has been visited before.
-        # Store these as you see fit, using appropriate data types.
-        #
-        # This is just a suggested starter class for Location.
-        # You may change/add parameters and the data available for each Location object as you see fit.
-        #
-        # The only thing you must NOT change is the name of this class: Location.
-        # All locations in your game MUST be represented as an instance of this class.
-
-        # TODO: Complete this method
         self.location_num = location_num
         self.num_points = num_points
         self.short_desc = short_desc
         self.long_desc = long_desc
-        self.num_visited = num_visited
-
-    def available_actions(self):
-        """
-        Return the available actions in this location.
-        The actions should depend on the items available in the location
-        and the x,y position of this location on the world map.
-        """
-
-        # NOTE: This is just a suggested method
-        # i.e. You may remove/modify/rename this as you like, and complete the
-        # function header (e.g. add in parameters, complete the type contract) as needed
-
-        # TODO: Complete this method, if you'd like or remove/replace it if you're not using it
-
+        self.visited = visited
+        self.locked = locked
+        self.searchable = searchable
+        self.available_items = available_items

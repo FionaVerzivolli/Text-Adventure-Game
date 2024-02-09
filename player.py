@@ -18,12 +18,11 @@ please consult our Course Syllabus.
 
 This file is Copyright (c) 2024 CSC111 Teaching Team
 """
+from typing import Optional, TextIO
+from item import Item
+from location import Location
+from item import IceCreamSandwich
 
-# from adventure import game_world
-
-# from initialize import game_player, game_world
-
-# TODO: need inventory command, player class should store all the methods from player input
 
 class Player:
     """
@@ -46,24 +45,31 @@ class Player:
         Initializes a new Player at position (x, y).
 
         - game_map: 2d list of ints, map 
+
+        Representation Invariants:
+          - game_map != [] and game_map != [[]]
+          - all([len(game_map[n]) == len(game_map[n + 1]) for n in range(0, len(game_map) - 1)])
+          - 0 <= y <= len(game_map)
+          - 0 <= x <= len(game_map[0])
         """
-        # NOTES:
-        # This is a suggested starter class for Player.
-        # You may change these parameters and the data available for the Player object as you see fit.
         self.x = x
         self.y = y
         self.game_map = game_map
-        self.inventory = []
-        self.victory = False
+        
+        self.score = 0
+        self.inventory = []  
+        self.max_weight = 1
+        self.deposited = 0
 
-    def move(self, choice) -> None:
+    def move(self, choice: str, location_dict: dict[int, Location]) -> None:
         """
-        TODO: fix doctests to make move invalid if you try to move to LOCATION -1
-        Function method used to update a player's position based off of the
-        player's input
+        Our movement function for our player. 
+        The player can move in 4 directions, North, South, East or West,
+        depending on the adjacent rooms.
 
         Preconditions:
         - choice == 'north' or choice == 'west' or choice == 'south' or choice == 'east'
+        - location_dict != {}
 
         >>> player = Player(1, 1)
         >>> player.move('south')
@@ -89,12 +95,18 @@ class Player:
        Instance Attributes:
         - choice: str
         """
-        # Implemented by: Fiona
+        # movement cases for each direction, add or subtract to coordinates as required
         if choice == 'north':
+          # check if movement is within bounds
           if self.y - 1 < 0:
             print("You cannot move outside boundaries \n")
+          # if movement results in an unreachable area, display the correct message
           elif self.game_map[self.y - 1][self.x] == -1:
               print("You cannot move there \n")
+          elif location_dict[self.game_map[self.y - 1][self.x]].locked:
+             print('room is locked \n')
+          # if there are no issues, proceed and update the correct coordinate
+          # same logic applies to every other elif/else branch
           else:
             self.y -= 1
         elif choice == 'south':
@@ -102,6 +114,8 @@ class Player:
             print("You cannot move outside boundaries \n")
           elif self.game_map[self.y + 1][self.x] == -1:
               print("You cannot move there \n")
+          elif location_dict[self.game_map[self.y + 1][self.x]].locked:
+             print('room is locked \n')
           else:
             self.y += 1
         elif choice == 'west':
@@ -109,39 +123,71 @@ class Player:
               print("You cannot move outside boundaries \n")
             elif self.game_map[self.y][self.x - 1] == -1:
                print("You cannot move there \n")
+            elif location_dict[self.game_map[self.y][self.x - 1]].locked:
+             print('room is locked \n')
             else:
               self.x -= 1
         elif choice == 'east':
-            if self.x + 1 > len(self.game_map[0]) - 1:
-              print("You cannot move outside boundaries \n")
-            elif self.game_map[self.y][self.x + 1] == -1:
-               print("You cannot move there \n")
-            else:
-              self.x += 1
-        '''
-        initial_x = self.x  # keep track of initial x and y
-        initial_y = self.y
-        keyword_count = 0  # keep track of the number of keywords
-        if "north" in case_gone or "n" in case_gone:  # check if a keyword is mentioned
-            self.y += 1
-            keyword_count += 1
-        if "south" in case_gone or "s" in case_gone:
-            keyword_count += 1
-            self.y -= 1
-        if "east" in case_gone or "s" in case_gone:
-            keyword_count += 1
-            self.x += 1
-        if "west" in case_gone or "w" in case_gone:
-            keyword_count += 1
+          if self.x + 1 > len(self.game_map[0]) - 1:
+            print("You cannot move outside boundaries \n")
+          elif self.game_map[self.y][self.x + 1] == -1:
+            print("You cannot move there \n")
+          elif location_dict[self.game_map[self.y][self.x + 1]].locked:
+            print('room is locked \n')
+          else:
             self.x += 1
 
-        if keyword_count == 0:  # loop if there are no keywords
-            choice_2 = input("Please enter a valid input.")
-            self.text_parsing_movement(choice_2)
+    def print_inventory(self) -> None:
+      """ Print the player's inventory.
+      """
+      # if the length is 0, the player has no inventory
+      if len(self.inventory) == 0:
+          print('empty inventory \n')
+      else:
+        # otherwise, print full inventory
+        print('your inventory is: \n')
+        for item in self.inventory:
+          print(f"{item.name}\n")
 
-        elif keyword_count > 1:  # loop if there is more than one keyword
-            choice_2 = input("Please enter an input with only one direction.")
-            self.text_parsing_movement(choice_2)
-            self.x = initial_x
-            self.y = initial_y
-        '''
+    def in_inventory(self, item_name: str) -> bool:
+      """ A function to check whether an item is in the player's inventory.
+      """
+      for item in self.inventory:
+        if item.name == item_name:
+          return True
+      return False
+
+    def add_item(self, item: Item) -> None:
+      """
+      A function to add an item to a player's inventory.
+
+      Preconditons:
+        - item.name != ''
+        - item.name is not None
+      """
+
+      # if there is room in our inventory (the length is less than the max length)
+      if len(self.inventory) < self.max_weight:
+        # add the item to our inventory
+        print(f'added {item.name} to inventory \n')
+        self.inventory.append(item)
+      # otherwise, tell the player to remove an item
+      else:
+        print(f'inventory is too full! REMOVE item to pick up new item \n')
+
+    def remove_item(self, item_name:str) -> Optional[Item]:
+        """A function used to remove an item from our player's inventory. 
+        Returns removed item so it can be used in our World class."""
+
+        # check each item in our inventory
+        for i in range(len(self.inventory)):
+          # if the inventory item's name matched our item's name, 
+          if self.inventory[i].name == item_name:
+            # successfully remove this item from inventory and return it
+            print(f'removed {item_name} from inventory')
+            return self.inventory.pop(i)
+        # otherwise, return an error message
+        print(f'You do not have {item_name} in your inventory')
+        return None
+
+      
