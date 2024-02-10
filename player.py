@@ -155,7 +155,7 @@ class Player:
                 print(f"{inventory_item.name}\n")
 
     def in_inventory(self, item_name: str) -> bool:
-        """ A function to check whether an item is in the player's inventory.
+        """ A helper function to check whether an item is in the player's inventory.
         If the item is in inventory, return true, otherwise return false
         """
         for inventory_item in self.inventory:
@@ -202,13 +202,15 @@ class Player:
         """
         if item_name in ['Cheatsheet', 'Tcard', 'Luckypen'] and location_num == 1:
             # game keeps track of how many required items the player brings to exam center
-            self.deposited += 1
-            deposited_item = self.remove_item(item_name)
-            # player earns points
-            self.score += deposited_item.points
-            print(deposited_item.print_statement(True))     # NOTE: use of polymorphic code from item.py here
+            if self.in_inventory(item_name):
+                self.deposited += 1
+                deposited_item = self.remove_item(item_name)
+                # player earns points
+                self.score += deposited_item.points
+                print(deposited_item.print_statement(True))     # NOTE: use of polymorphic code from item.py here
         else:
             print('Cannot deposit here \n')
+
 
 
 if __name__ == '__main__':
