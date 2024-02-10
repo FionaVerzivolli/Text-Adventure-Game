@@ -17,28 +17,52 @@
 
 \begin{enumerate}
 
-\item Describe your enhancement \#1 here
-	\begin{itemize}
-	\item Brief description of what the enhancement is (if it's a puzzle, also describe what steps the player must take to solve it):
-	\item Complexity level (choose from low/medium/high):
-	\item Reasons you believe this is the complexity level (e.g. mention implementation details, how much code did you have to add/change from the baseline, what challenges did you face, etc.)
-	% Feel free to add more subheadings if you need
-	\end{itemize}
+\item Enhancement 1: Items
+    \begin{itemize}
+    \item Our item enhancement uses the ItemFactory class with inheritance to add more functionalities to our items. We have a main items class which was part of the starter code and a separate class for each item we intend to use in the game, such as the Flowers and IceCreamSandwich class that inherit from the main Items class. We also used inheritance here as part of a larger feature that allows the player to use items to solve puzzles by typing 'use [item name]'. The item class has an abstract method called \texttt{print\_statement} which for each item, prints a custom message to the player using polymorphism. For items like Key, Tcard, or LuckyPen, \texttt{print\_statement} simply tells the player whether or not the item has been used successfully. However, for items like Flowers or IceCreamSandwich, when used correctly, the player is rewarded with a hint like 'answer 42 to Ilias puzzle' and can advance successfully in the game.
+ 
+    \item Complexity level: Difficult
+ 
+    \item Reasons you believe this is the complexity level (e.g. mention implementation details, how much code did you have to add/change from the baseline, what challenges did you face, etc.):
+    We believe that the complexity level is difficult as we had to write many lines of code and alter the way our items initially worked for this enhancement. This was not included in the baseline/start files, and we faced challenges implementing it, having to alter the rest of our code and incorporate inheritance into our project.
+    % Feel free to add more subheadings if you need
+    \end{itemize}
+ 
 
 % Uncomment below section if you have more enhancements; copy-paste as many times as needed
-%\item Describe your enhancement here
-%	\begin{itemize}
-%	\item Basic description of what the enhancement is:
-%	\item Complexity level (low/medium/high):
-%	\item Reasons you believe this is the complexity level (e.g. mention implementation details 
-%	% Feel free to add more subheadings if you feel the need
-%	\end{itemize}
+\item Enhancement 2: Puzzle
+    \begin{itemize}
+    \item The way that our game is structured involves small puzzles that include having to unlock a room, search a garbage can for a key, locate keys within our map, and do small side-quests to unlock items that are needed such as giving flowers to Tom and ice cream to a homeless man. To add to the difficulty of the game, our player has a limited inventory, which means that they need to be strategic of what they're picking up/dropping. These puzzles make the game more exciting and strategic.
 
-\end{enumerate}
 
+    \item Complexity level : Medium
+    \item Reasons you believe this is the complexity level (e.g. mention implementation details):
+    There were several puzzles/objectives/quests we had to implement, each taking a reasonable amount of time. We also had to be mindful of how each side quest/puzzle related to each other and the order the player must go through them, which added an element of challenge. Testing our puzzle for errors was also a hassle, as each part was connected to one another.
+    \end{itemize}
+
+\item Enhancement 3: Extra Functions/Methods
+    \begin{itemize}
+    \item In order to progress through our game, we made the following functions/methods: "search," "unlock," "pick up," "drop," and "enter." These methods were implemented as a way to interact with items that are required for our puzzles, for example "drop" is used to drop an item from a player's inventory and append it to the location's items. These methods are crucial in order to play our game.
+
+    \item Complexity level : Medium
+    \item Reasons you believe this is the complexity level (e.g. mention implementation details):
+    The complexity level is medium as we had to implement 5 extra methods, each requiring careful consideration of game mechanics and our user's interactions. We needed to make sure that each method is compatible with each other and other methods, and had to go through error handling to prevent unexpected behavior. While not too hard, implementing these extra methods took consideration and lots of planning.
+ 
+\end{itemize}
+
+\item Enhancement 4: Text Parsing
+    \begin{itemize}
+    \item Because player inputs can have typos or similar to the desired input but not quite (think about words like "move" and "go"), we included a text parsing function to deal with this technicality.
+
+    \item Complexity level : Easy
+    \item Reasons you believe this is the complexity level (e.g. mention implementation details):
+    The complexity level is easy, as we only need to implement one function that then deals with the player's input. There was a tedious part which was generating a word bank, but otherwise, it was not hard to implement.
+\end{itemize}
 
 \section*{Extra Gameplay Files}
 
 If you have any extra \texttt{gameplay\#.txt} files, describe them below.
+
+\end{enumerate}
 
 \end{document}

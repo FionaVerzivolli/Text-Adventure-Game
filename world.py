@@ -16,9 +16,9 @@ class World:
         - item_dict: a dictionary mapping the item name string to the item object
 
     Representation Invariants:
-        - map != [[]]
-        - location_dict != {}
-        - item_dict != {}
+        - self.map != [[]]
+        - self.location_dict != {}
+        - self.item_dict != {}
     """
     map: list[list[int]]
     location_dict: dict[int, Location]
@@ -247,7 +247,7 @@ class World:
         - 1 <= location_number <= 11
         - item_name in self.item_dict.keys()
 
-        Doctests:
+        Doctests (note doctest.testmod won't work bc of print statements in function):
         >>> sample_map = open("map.txt")
         >>> sample_location = open("locations.txt")
         >>> sample_items = open("items.txt")
@@ -258,15 +258,21 @@ class World:
         False
         >>> world.remove_item('IceCreamSandwich', 1, 0) == world.item_dict['IceCreamSandwich']
         False
+        >>> sample_map.close()
+        >>> sample_location.close()
+        >>> sample_items.close()
         """
 
         # check if our item is part of our location's available items
-        if item_name in self.location_dict[location_number].available_items and inventory_size < 1:
+        if item_name in self.location_dict[location_number].available_items and inventory_size < 2:
             # remove item from our location
+
             self.location_dict[location_number].available_items.remove(item_name)
+            print(f'picked up {item_name}')
             # return item's name
             return self.item_dict[item_name]
         else:
+            print(f'cannot pick up {item_name}, it does not exist or inventory is full. You can carry two items max')
             return None
 
     def add_item(self, item_name: str, location_number: int) -> None:
@@ -284,43 +290,66 @@ class World:
         >>> world.add_item('asdf', 1)
         >>> world.location_dict[1].available_items == ['asdf']
         True
+        >>> sample_map.close()
+        >>> sample_location.close()
+        >>> sample_items.close()
         """
         self.location_dict[location_number].available_items.append(item_name)
 
-    def search(self, location_number: int, search_area: str) -> Optional[item.Item]:
+    def search(self, location_number: int, search_area: str, inventory_size: int) -> Optional[item.Item]:
         """
         Search a specific location to find our required items
         Preconditions:
         - 1 <= location_number <= 11
         - len(search_area) > 0
+
+        NOTE: these doctests won't appear to work because of the print statements
         >>> sample_map = open("map.txt")
         >>> sample_location = open("locations.txt")
         >>> sample_items = open("items.txt")
         >>> world = World(sample_map, sample_location, sample_items)
-        >>> world.search(4, 'garbage') == world.item_dict['Key']
-        True
-        >>> world.search(4, 'asdfjk') == world.item_dict['Key']
+        >>> world.search(4, 'garbage', 2) == world.item_dict['Key']
         False
+        >>> world.search(4, 'asdfjk', 0) == world.item_dict['Key']
+        False
+        >>> world.search(4, 'garbage', 0) == world.item_dict['Key']
+        True
+        >>> sample_map.close()
+        >>> sample_location.close()
+        >>> sample_items.close()
         """
 
         if location_number == 4:
             # check to see if we searched garbage and our location is searchable
             if search_area == 'garbage' and self.location_dict[location_number].searchable:
-                # update our location to no longer be searchable
-                self.location_dict[location_number].searchable = False
-                # return our key item
-                return self.item_dict['Key']
+                if inventory_size < 2:
+                    # update our location to no longer be searchable
+                    self.location_dict[location_number].searchable = False
+                    # return our key item
+                    print('found Key!')
+                    return self.item_dict['Key']
+                else:
+                    print("inventory too full anyways, can't pick up anything!")
+                    return None
             # otherwise, you cannot search the room
             else:
+                print('cannot search here!')
                 return None
         # same logic but for our other searchable location
         elif location_number == 10:
             if search_area == 'rocket' and self.location_dict[location_number].searchable:
-                self.location_dict[location_number].searchable = False
-                return self.item_dict['Lucky_pen']
+                if inventory_size < 2:
+                    self.location_dict[location_number].searchable = False
+                    print('found lucky pen')
+                    return self.item_dict['Luckypen']
+                else:
+                    print("inventory too full anyways, can't pick up anything!")
+                    return None
             else:
+                print('Cannot search that')
                 return None
         else:
+            print('cannot search that')
             return None
 
     def use(self, item_name: str, location_number: int) -> bool:
@@ -341,6 +370,9 @@ class World:
         True
         >>> world.use('IceCreamSandwich', 3)
         True
+        >>> sample_map.close()
+        >>> sample_location.close()
+        >>> sample_items.close()
         """
 
         # check specific items

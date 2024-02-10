@@ -102,7 +102,7 @@ unsearchable
 END
 
 LOCATION 7 CSSU Lounge
-NUM_POINTS 0
+NUM_POINTS 100
 -SHORT
 You enter the CSSU lounge, where you found your Tcard. You see a fridge full of ice cream sandwiches here, you need
 them to sustain you during your journey. To your east is Bahen.
@@ -114,7 +114,7 @@ area.
 locked
 unsearchable
 -AVAILABLE_ITEMS
-T_card
+Tcard
 IceCreamSandwich
 END
 
@@ -147,7 +147,7 @@ unsearchable
 END
 
 LOCATION 10 Myhal Centre
-NUM_POINTS 0
+NUM_POINTS 100
 -SHORT
 You enter Myhal, you know for sure that you left your pen here but you really wonder where.
 -LONG
@@ -160,7 +160,7 @@ searchable
 END
 
 LOCATION 11 McLennan Laboratories
-NUM_POINTS 0
+NUM_POINTS 100
 -SHORT
 You enter McLennan and you see professor Ilia Gaiur with infinitely many cheat sheets, he says he will only give
 it to you if you answer a math question for him. He asks you "Фэйргрив назвала тебе правильный номер" and asks you to

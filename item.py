@@ -25,6 +25,12 @@ Classes are kept separate in order to keep files modular and easy to test
 class Item:
     """An item in our text adventure game world.
 
+        Instance Attributes:
+        - start_location: int representing item start location on game map
+        - end_location: int representing item end location on game map
+        - points: int representing points given for picking up item
+        - name: string representing name of the item
+
         Representation Invariants:
         - isinstance(self.start_location, int)
         - isinstance(self.end_location, int)
@@ -89,7 +95,7 @@ class Key(Item):
         """
 
         if used_successfully:
-            return 'You have used key successfully! \nYou have unlocked the CSSU lounge\n'
+            return 'You have used key successfully! You discard it \nYou have unlocked the CSSU lounge\n'
         else:
             return 'You cannot use the key here!\n'
 
@@ -120,12 +126,12 @@ class Tcard(Item):
         >>> tcard.print_statement(True)
         'You have deposited your t-card in successfully! \n'
         >>> tcard.print_statement(False)
-        'You cannot deposited your t-card here! \n'
+        'You cannot deposit your t-card here! \n'
         """
         if used_successfully:
             return 'You have deposited your t-card in successfully! \n'
         else:
-            return 'You cannot deposited your t-card here! \n'
+            return 'You cannot deposit your t-card here! \n'
 
 
 class Luckypen(Item):
@@ -154,12 +160,12 @@ class Luckypen(Item):
         >>> pen.print_statement(True)
         'You have deposited your lucky pen in successfully! \n'
         >>> pen.print_statement(False)
-        'You cannot deposited your lucky pen here! \n'
+        'You cannot deposit your lucky pen here! \n'
         """
         if used_successfully:
             return 'You have deposited your lucky pen in successfully! \n'
         else:
-            return 'You cannot deposited your lucky pen here! \n'
+            return 'You cannot deposit your lucky pen here! \n'
 
 
 class Cheatsheet(Item):
@@ -189,12 +195,12 @@ class Cheatsheet(Item):
         >>> sheet.print_statement(True)
         'You have deposited your cheat sheet in successfully! \n'
         >>> sheet.print_statement(False)
-        'You cannot deposited your cheat sheet here! \n'
+        'You cannot deposit your cheat sheet here! \n'
         """
         if used_successfully:
             return 'You have deposited your cheat sheet in successfully! \n'
         else:
-            return 'You cannot deposited your cheat sheet here! \n'
+            return 'You cannot deposit your cheat sheet here! \n'
 
 
 class IceCreamSandwich(Item):
@@ -223,13 +229,13 @@ class IceCreamSandwich(Item):
         >>> ice = IceCreamSandwich(0, 0, 0, 'test')
         >>> ice.print_statement(True)
         'You have given your ice cream successfully! \nThe suspicious man tells you to SEARCH the rocket in Myhal \
-        center for your lucky pen \n'
+center for your lucky pen \n'
         >>> ice.print_statement(False)
         'You cannot give your ice cream here! \n'
         """
         if used_successfully:
             return 'You have given your ice cream successfully! \nThe suspicious man tells you to SEARCH the rocket\
-             in Myhal center for your lucky pen \n'
+            in Myhal center for your lucky pen \n'
         else:
             return 'You cannot give your ice cream here! \n'
 

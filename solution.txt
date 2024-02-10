@@ -1,0 +1,62 @@
+go west
+move west
+move north
+search garbage
+inventory
+score
+go west
+go west
+uSe kEy
+score
+go west
+inventory
+pick up tcard
+pick up ice cream
+score
+inventory
+go east
+go east
+go south
+use ice cream
+go north
+go north
+pick up flowers
+inventory
+score
+go south
+go east
+give flowers
+score
+go west
+go north
+go north
+go west
+42
+inventory
+score
+go east
+go south
+go south
+go south
+go east
+go east
+deposit tcard
+inventory
+score
+deposit cheatsheet
+inventory
+score
+go west
+go west
+go north
+go north
+go north
+go east
+search rocket
+go west
+go south
+go south
+go south
+go east
+go east
+deposit pen
