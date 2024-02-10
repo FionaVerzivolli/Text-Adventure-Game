@@ -211,11 +211,9 @@ class Player:
         else:
             print('Cannot deposit here \n')
 
+# if __name__ == '__main__':
+#     import python_ta
 
-
-if __name__ == '__main__':
-    import python_ta
-
-    python_ta.check_all(config={
-        'max-line-length': 120,
-    })
+#     python_ta.check_all(config={
+#         'max-line-length': 120,
+#     })

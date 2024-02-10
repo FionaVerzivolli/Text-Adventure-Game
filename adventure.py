@@ -154,7 +154,7 @@ if __name__ == "__main__":
 
     print('\n')
     # initialize amount of time left and amount of deposited items
-    TIME_LEFT = 120
+    TIME_LEFT = 90
 
     # while the player still has time and hasn't deposited all the items, continue the game
     while TIME_LEFT > 0 and player.deposited < 3:

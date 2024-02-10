@@ -47,7 +47,7 @@ NUM_POINTS 0
 -SHORT
 You are at Main College Street where you spot a suspicious man rambling about some magic pen. He says that he wants
 ice cream for information about this pen. To your north is Saint George Street, and to your east is College street
-intersection. \n
+intersection. 
 -LONG
 You are at Main College Street where you spot a suspicious man rambling about some magic pen. He says that he was
 about to fail in MAT137 exam when this magic pen fell onto his lap, encoding all the correct proofs into his head. He
@@ -63,7 +63,7 @@ NUM_POINTS 0
 -SHORT
 You are on Saint George street. You notice a suspicious garbage can. To your north continues Saint George street
 where you see think you see flowers, to your west is Bahen, to your east is Wallberg, and to your south is College
-street. \n
+street. 
 -LONG
 You are on Saint George street. You notice a suspicious garbage can, you think it might be worth looking into. To
 your north continues Saint George street where you see think you see flowers, maybe you can surprise someone with
