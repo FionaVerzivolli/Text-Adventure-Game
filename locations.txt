@@ -62,10 +62,10 @@ LOCATION 4 Saint George Street intersection
 NUM_POINTS 0
 -SHORT
 You are on Saint George street. You notice a suspicious garbage can. To your north continues Saint George street where
-you see a man selling flowers, to your west is Bahen, to your east is Wallberg, and to your south is College street.
+you see think you see flowers, to your west is Bahen, to your east is Wallberg, and to your south is College street.
 -LONG
 You are on Saint George street. You notice a suspicious garbage can, you think it might be worth looking into. To your
-north continues Saint George street where you see a man selling flowers, maybe you can surprise someone with them, to
+north continues Saint George street where you see think you see flowers, maybe you can surprise someone with them, to
 your west is Bahen, to your east is Wallberg, and to your south is College street.
 unlocked
 searchable

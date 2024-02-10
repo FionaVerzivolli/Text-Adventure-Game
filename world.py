@@ -1,27 +1,8 @@
-"""CSC111 Project 1: Text Adventure Game Classes
-
-Instructions (READ THIS FIRST!)
-===============================
-
-This Python module contains the main classes for Project 1, to be imported and used by
- the `adventure` module.
- Please consult the project handout for instructions and details.
-
-Copyright and Usage Information
-===============================
-
-This file is provided solely for the personal and private use of students
-taking CSC111 at the University of Toronto St. George campus. All forms of
-distribution of this code, whether as given or with any changes, are
-expressly prohibited. For more information on copyright for CSC111 materials,
-please consult our Course Syllabus.
-
-This file is Copyright (c) 2024 CSC111 Teaching Team
-"""
+"""This module contains the world class used in adventure."""
 
 from typing import Optional, TextIO
 from location import Location
-from item import *
+import item
 
 class World:
     """A text adventure game world storing all location, item and map .
@@ -215,7 +196,7 @@ class World:
             return locations[map_location]
         return None
 
-    def load_items(self, item_data: TextIO) -> dict[str, Item]:
+    def load_items(self, item_data: TextIO) -> dict[str, item.Item]:
         """
         Loading in items using item factory in item.py
 
@@ -245,13 +226,13 @@ class World:
             # item name
             item_name = line[3].strip()
             # create an item using our data and add it to our dictionary
-            item_dict[item_name] = ItemFactory.create_item(start_location, end_location, points, item_name)
+            item_dict[item_name] = item.ItemFactory.create_item(start_location, end_location, points, item_name)
             # read next line
             line = item_data.readline()
         
         return item_dict
 
-    def remove_item(self, item_name: str, location_number: int, inventory_size: int) -> Optional[Item]:
+    def remove_item(self, item_name: str, location_number: int, inventory_size: int) -> Optional[item.Item]:
         """remove an item from our location's available items"""
 
         # check if our item is part of our location's available items
@@ -268,7 +249,7 @@ class World:
         """add an item to our location's available items"""
         self.location_dict[location_number].available_items.append(item_name) 
 
-    def search(self, location_number: int, search_area: str) -> Optional[Item]:
+    def search(self, location_number: int, search_area: str) -> Optional[item.Item]:
         """Search a specific location to find our required items"""
 
         if location_number == 4:
@@ -318,3 +299,12 @@ class World:
                 return True
             else:
                 return False
+        else:
+            return False
+            
+if __name__ == "__main__":
+    import python_ta
+
+    python_ta.check_all(config={
+        'max-line-length': 120,
+    })

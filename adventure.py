@@ -1,25 +1,3 @@
-"""CSC111 Project 1: Text Adventure Game
-
-Instructions (READ THIS FIRST!)
-===============================
-
-This Python module contains the code for Project 1. Please consult
-the project handout for instructions and details.
-
-Copyright and Usage Information
-===============================
-
-This file is provided solely for the personal and private use of students
-taking CSC111 at the University of Toronto St. George campus. All forms of
-distribution of this code, whether as given or with any changes, are
-expressly prohibited. For more information on copyright for CSC111 materials,
-please consult our Course Syllabus.
-
-This file is Copyright (c) 2024 CSC111 Teaching Team
-"""
-
-# TODO: MAKE SURE TO WRITE COMPLETE DOCSTRINGS, PRECONDITIONS, AND REPRESENTATION INVARIANTS
-
 from world import World
 from player import Player
 from location import Location
@@ -39,20 +17,17 @@ def parse_input(input: str) -> None:
     input = input.lower()
     # list of replacement words
     replacement_words = [ ('move', 'go'), ('pick up', 'pickup'), ('flowers', 'Flowers'), ('ice cream', 'IceCreamSandwich'),
-                         ('ice cream sandwich', 'IceCreamSandwich'), ('pen', 'Lucky_pen'), ('take', 'pickup'), ('lucky pen', 'Lucky_pen'),
-                         ('lucky pen', 'Lucky_pen'), ('cheatsheet', 'Cheatsheet'), ('cheat sheet', 'Cheatsheet'),
-                         ('t card', 'T_card'), ('t-card', 'T_card'), ('key', 'Key'), ('enter', 'give'), ('cssu lounge', 'lounge')]
+                         ('ice cream sandwich', 'IceCreamSandwich'), ('pen', 'Luckypen'), ('take', 'pickup'), ('lucky pen', 'Luckypen'),
+                         ('lucky pen', 'Luckypen'), ('cheatsheet', 'Cheatsheet'), ('cheat sheet', 'Cheatsheet'), ('give', 'use'),
+                         ('t card', 'Tcard'), ('t-card', 'Tcard'), ('tcard', 'Tcard'), ('key', 'Key'), ('enter', 'give'), ('cssu lounge', 'lounge')]
     for replacement in replacement_words:
-        input = input.replace(replacement[0], replacement[1])  
+        input = input.replace(replacement[0], replacement[1])
     # get rid of all spaces
     command = input.split(' ')
 
     # error cases
-    if len(command) == 0:
-        print('what? \n')
-    elif len(command) == 1 and command[0] not in ['inventory', 'quit', 'look', 'score', '42']:
-        print(f"{command[0]} what/where? \n")
-
+    if len(command) == 0 or (len(command) == 1 and command[0] not in ['inventory', 'quit', 'look', 'score', 'help', '42']):
+        print(f" What \n")
     # handle movement cases
     elif command[0] == 'go':
         if command[1] == 'north' or command[1] == 'south' or command[1] == 'west' or command[1] == 'east':
@@ -97,7 +72,7 @@ def parse_input(input: str) -> None:
         if temp is not None:
             game_player.add_item(temp)
             game_player.score += temp.points
-    
+
     # use command
     elif command[0] == 'use':
         # implemented this way for pyta indentation error
@@ -107,16 +82,16 @@ def parse_input(input: str) -> None:
             item_index = inventory_names.index(command[1])
             # try using this item on the player's current location
             is_success = game_world.use(command[1], game_world.map[game_player.y][game_player.x])
-            # print whether we were able to use our item
-            game_player.inventory[item_index].print_statement(is_success)
-          
+            # print whether we were able to use our item, using polymorphic method in item.py
+            print(game_player.inventory[item_index].print_statement(is_success))            #NOTE: use of polymorphic code here
+
             # if we were able to use this item, update our score and remove item from inventory
             if is_success:
                 removed_item = game_player.inventory.pop(item_index)
                 game_player.score += removed_item.points
         except:
             print('item not in inventory')
-   
+
     # code for when the user enters the correct answer for our math problem
     elif command[0] == '42':
         if game_world.map[game_player.y][game_player.x] == 11:
@@ -126,46 +101,42 @@ def parse_input(input: str) -> None:
             game_player.score += cheatsheet_item.points
             # player gets cheatsheet
             game_player.add_item(cheatsheet_item)
-    
+
     elif command[0] == 'deposit':
-        if command[1] in ['Key', 'T_card', 'Lucky_pen'] and game_world.map[game_player.y][game_player.x] == 1:
+        if command[1] in ['Key', 'Tcard', 'Luckypen'] and game_world.map[game_player.y][game_player.x] == 1:
             # game keeps track of how many required items the player brings to exam center
             game_player.deposited += 1
             deposited_item = game_player.remove_item(command[1])
             # player earns points
             game_player.score += deposited_item.points
-            deposited_item.print_statement(True)
-                    
+            print(deposited_item.print_statement(True))     # NOTE: use of polymorphic code from item.py here
+
     else:
         # invalid input case
         print("I do not understand that! \n")
 
-    return
+    return None
 
-# Note: You may modify the code below as needed; the following starter template are just suggestions
 if __name__ == "__main__":
-    # NOTE: game world and player have been initialized in another file to avoid circular import issue
-    # this is because for movement, player needs to know the size of the map but player is imported here too
-
-    # menu = ["look", "inventory", "score", "quit", "back"]
-    # location_descriptions = {}
 
     # open all of our text files for their information
-    game_world = World(open("map.txt"), open("locations.txt"), open("items.txt"))
-    # create our player using the player class
-    game_player = Player(4, 3, game_world.map) 
+    with open('map.txt') as map_file, open('locations.txt') as location_file, open('items.txt') as item_file:
+        game_world = World(map_file, location_file, item_file)
 
-    print('\n')   
+    # create our player using the player class
+    game_player = Player(4, 3, game_world.map)
+
+    print('\n')
     # initialize amount of time left and amount of deposited items
     TIME_LEFT = 120
     deposited_count = 0
 
     # while the player still has time and hasn't deposited all the items, continue the game
     while TIME_LEFT > 0 and game_player.deposited < 3:
-        print(f'You have {TIME_LEFT} minutes to get to exam! \n')
         # update location
         location = game_world.get_location(game_player.x, game_player.y)
-        # if the player hasn't visited the location,
+        print(f'Location: {game_player.game_map[game_player.y][game_player.x]}')
+        # if the player hasn't visited the location
         if not location.visited:
             # print out long description and add points
             print(location.long_desc + '\n')
@@ -176,11 +147,13 @@ if __name__ == "__main__":
             # if visited attribute is already True, print out short description
             print(location.short_desc + '\n')
 
+        print(f'***** You have {TIME_LEFT} minutes to get to exam! You better hurry, cannot make mistakes! *****\n')
+
         # give the player a prompt
         player_input = input("What to do? ")
         # parses player command and decides correct player method
-        parse_input(player_input)  
-        # after each move, the player's time decreases   
+        parse_input(player_input)
+        # after each move, the player's time decreases
         TIME_LEFT -= 1
         #if there is no time left end the game
         if TIME_LEFT == 0:
@@ -190,7 +163,7 @@ if __name__ == "__main__":
         if game_player.deposited == 3:
             print('YOU HAVE DEPOSITED ALL THE ITEMS AND WIN! \n')
             quit()
-        
+
         # import python_ta
 
         # python_ta.check_all(config={
