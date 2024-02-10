@@ -13,8 +13,8 @@ END
 LOCATION 1 Exam Centre
 NUM_POINTS 0
 -SHORT
-You enter the exam room, you need your T-card, lucky pen, and cheat sheet to 'DEPOSIT' the CSC111 exam hall. To your west
-you see the College Street intersection.
+You enter the exam room, you need your T-card, lucky pen, and cheat sheet to 'DEPOSIT' the CSC111 exam hall. To
+your west you see the College Street intersection.
 -LONG
 You enter the exam centre ready to write your CSC111 exam, but a sense of dread fills you. You realize that you have
 forgetten to bring your T-card, and the proctor won't let you in without it. Moreover, you misplaced your lucky exam
@@ -30,12 +30,12 @@ LOCATION 2 College Street Intersection
 NUM_POINTS 0
 -SHORT
 You are at an intersection on College street, you must be careful not to cross on a red light or a car will hit you!
-However, you sense you are running out of time... To your west is main College Street, to your north is the Wallberg CS
-lecture building, and to your east is the exam centre.
+However, you sense you are running out of time... To your west is main College Street, to your north is the Wallberg
+CS lecture building, and to your east is the exam centre.
 -LONG
-You are at an intersection College street. There is a traffic light here, and you see cars zooming around. If the light
-is red, you know you better not cross, but at the same time, you don't know how long you can wait for the light to turn
-green with an impending exam... To your west is main College Street, to your north is the Wallberg CS
+You are at an intersection College street. There is a traffic light here, and you see cars zooming around. If the
+light is red, you know you better not cross, but at the same time, you don't know how long you can wait for the light
+to turn green with an impending exam... To your west is main College Street, to your north is the Wallberg CS
 lecture building, and to your east is the exam centre.
 unlocked
 unsearchable
@@ -45,13 +45,13 @@ END
 LOCATION 3 Main College Street
 NUM_POINTS 0
 -SHORT
-You are at Main College Street where you spot a suspicious man rambling about some magic pen. He says that he wants ice
-cream for information about this pen. To your north is Saint George Street, and to your east is College street
-intersection.
+You are at Main College Street where you spot a suspicious man rambling about some magic pen. He says that he wants
+ice cream for information about this pen. To your north is Saint George Street, and to your east is College street
+intersection. \n
 -LONG
-You are at Main College Street where you spot a suspicious man rambling about some magic pen. He says that he was about
-to fail in MAT137 exam when this magic pen fell onto his lap, encoding all the correct proofs into his head. He says he
-has now lost the pen but will tell you where he last left it if you give him some ice cream...
+You are at Main College Street where you spot a suspicious man rambling about some magic pen. He says that he was
+about to fail in MAT137 exam when this magic pen fell onto his lap, encoding all the correct proofs into his head. He
+says he has now lost the pen but will tell you where he last left it if you give him some ice cream...
 To your north is Saint George Street, and to your east is College street intersection.
 unlocked
 unsearchable
@@ -61,12 +61,13 @@ END
 LOCATION 4 Saint George Street intersection
 NUM_POINTS 0
 -SHORT
-You are on Saint George street. You notice a suspicious garbage can. To your north continues Saint George street where
-you see think you see flowers, to your west is Bahen, to your east is Wallberg, and to your south is College street.
+You are on Saint George street. You notice a suspicious garbage can. To your north continues Saint George street
+where you see think you see flowers, to your west is Bahen, to your east is Wallberg, and to your south is College
+street. \n
 -LONG
-You are on Saint George street. You notice a suspicious garbage can, you think it might be worth looking into. To your
-north continues Saint George street where you see think you see flowers, maybe you can surprise someone with them, to
-your west is Bahen, to your east is Wallberg, and to your south is College street.
+You are on Saint George street. You notice a suspicious garbage can, you think it might be worth looking into. To
+your north continues Saint George street where you see think you see flowers, maybe you can surprise someone with
+them, to your west is Bahen, to your east is Wallberg, and to your south is College street.
 unlocked
 searchable
 -AVAILABLE_ITEMS
@@ -78,9 +79,9 @@ NUM_POINTS 0
 You enter Wallberg building, You see professor Fairgrieve. To your west is Saint George Street, to your south is the
 College street intersection.
 -LONG
-You enter Wallberg building to the CS lecture hall where you see Tom Fairgrieve. Tom looks contemplative, you wonder if
-you could get him something to cheer him up, maybe he will give you some useful information in return. To your west is
-Saint George Street, to your south is the College street intersection.
+You enter Wallberg building to the CS lecture hall where you see Tom Fairgrieve. Tom looks contemplative, you wonder
+if you could get him something to cheer him up, maybe he will give you some useful information in return. To your
+west is Saint George Street, to your south is the College street intersection.
 unlocked
 unsearchable
 -AVAILABLE_ITEMS
@@ -106,9 +107,10 @@ NUM_POINTS 0
 You enter the CSSU lounge, where you found your Tcard. You see a fridge full of ice cream sandwiches here, you need
 them to sustain you during your journey. To your east is Bahen.
 -LONG
-You enter the CSSU lounge and to your utter glee, you find your lost Tcard in there. You also notice a fridge that has
-the CSSU's famous ice cream sandwiches, no one's watching, you think you can take as many of these ice creams as you
-want. They nourish you during your arduous journey to find all your goods. To your east is the main Bahen area.
+You enter the CSSU lounge and to your utter glee, you find your lost Tcard in there. You also notice a fridge that
+has the CSSU's famous ice cream sandwiches, no one's watching, you think you can take as many of these ice creams
+as you want. They nourish you during your arduous journey to find all your goods. To your east is the main Bahen
+area.
 locked
 unsearchable
 -AVAILABLE_ITEMS
@@ -119,9 +121,11 @@ END
 LOCATION 8 Saint George Street marketplace
 NUM_POINTS 0
 -SHORT
-you enter the Saint George Street marketplace, you see flowers on the ground. To your north is Saint George Street end, to your south is Saint George Street intersection.
+you enter the Saint George Street marketplace, you see flowers on the ground. To your north is Saint George Street
+end, to your south is Saint George Street intersection.
 -LONG
-you enter the Saint George Street marketplace, you see flowers on the ground. You wonder if those flowers could be given to someone.. To your north is Saint George Street
+you enter the Saint George Street marketplace, you see flowers on the ground. You wonder if those flowers could be
+given to someone.. To your north is Saint George Street
 end, to your south is Saint George Street intersection.
 unlocked
 unsearchable
@@ -158,14 +162,14 @@ END
 LOCATION 11 McLennan Laboratories
 NUM_POINTS 0
 -SHORT
-You enter McLennan and you see professor Ilia Gaiur with infinitely many cheat sheets, he says he will only give it to you if you
-answer a math question for him. He asks you "Фэйргрив назвала тебе правильный номер" and asks you to write a number
-as an answer. To your east is Saint George Street end.
+You enter McLennan and you see professor Ilia Gaiur with infinitely many cheat sheets, he says he will only give
+it to you if you answer a math question for him. He asks you "Фэйргрив назвала тебе правильный номер" and asks you to
+write a number as an answer. To your east is Saint George Street end.
 -LONG
-You enter McLennan Physical laboratories where you see your math professor, Ilia Gaiur. He holds infinitely many cheat shees in
-with a sly smile and tells you he will give you a cheat sheet if you answer a math problem correctly.  He asks you
-"Фэйргрив назвала тебе правильный номер" and asks you to write a number as an answer. You're sure you could probably
-guess it, but getting some advice from another professor might help out.. To your east is Saint
+You enter McLennan Physical laboratories where you see your math professor, Ilia Gaiur. He holds infinitely many
+cheat sheet in with a sly smile and tells you he will give you a cheat sheet if you answer a math problem correctly.
+He asks you "Фэйргрив назвала тебе правильный номер" and asks you to write a number as an answer. You're sure you
+could probably guess it, but getting some advice from another professor might help out.. To your east is Saint
 George street end
 unlocked
 unsearchable

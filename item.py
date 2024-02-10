@@ -77,18 +77,21 @@ class Key(Item):
 
     def print_statement(self, used_successfully: bool) -> str:
         """
-        print whether our key has been used successfully
+        return string describing whether our key has been used successfully
+        NOTE: doctests cannot be tested because of issue with leading whitespace, they are just show how method works
+
+        Doctests: 
         >>> key = Key(0, 1, 3, 'test')
         >>> key.print_statement(True)
-        'You have used key successfully! \nYou have unlocked the CSSU lounge \n'
+        'You have used key successfully! \nYou have unlocked the CSSU lounge\n'
         >>> key.print_statement(False)
-        'You cannot use the key here! \n'
+        'You cannot use the key here!\n'
         """
 
         if used_successfully:
-            return 'You have used key successfully! \nYou have unlocked the CSSU lounge \n'
+            return 'You have used key successfully! \nYou have unlocked the CSSU lounge\n'
         else:
-            return 'You cannot use the key here! \n'
+            return 'You cannot use the key here!\n'
 
 
 class Tcard(Item):
@@ -109,6 +112,15 @@ class Tcard(Item):
 
     def print_statement(self, used_successfully: bool) -> str:
         """
+        return string describing whether tcard deposited successfully or not
+        NOTE: doctests cannot be tested because of issue with leading whitespace, they are just show how method works
+
+        Doctests:
+        >>> tcard = Tcard(0, 0, 0, 'test')
+        >>> tcard.print_statement(True)
+        'You have deposited your t-card in successfully! \n'
+        >>> tcard.print_statement(False)
+        'You cannot deposited your t-card here! \n'
         """
         if used_successfully:
             return 'You have deposited your t-card in successfully! \n'
@@ -133,6 +145,17 @@ class Luckypen(Item):
         super().__init__(start_location, end_location, points, name)
 
     def print_statement(self, used_successfully: bool) -> str:
+        """
+        return string describing whether or not lucky pen is deposited successfully
+        NOTE: doctests cannot be tested because of issue with leading whitespace, they are just show how method works
+
+        Doctests:
+        >>> pen = Luckypen(0, 0, 0 'test')
+        >>> pen.print_statement(True)
+        'You have deposited your lucky pen in successfully! \n'
+        >>> pen.print_statement(False)
+        'You cannot deposited your lucky pen here! \n'
+        """
         if used_successfully:
             return 'You have deposited your lucky pen in successfully! \n'
         else:
@@ -157,6 +180,17 @@ class Cheatsheet(Item):
         super().__init__(start_location, end_location, points, name)
 
     def print_statement(self, used_successfully: bool) -> str:
+        """
+        return string describing whether cheatsheet deposited correctly or not
+        NOTE: doctests cannot be tested because of issue with leading whitespace, they are just show how method works
+
+        Doctests:
+        >>> sheet = Cheatsheet(0, 0, 0, 'test')
+        >>> sheet.print_statement(True)
+        'You have deposited your cheat sheet in successfully! \n'
+        >>> sheet.print_statement(False)
+        'You cannot deposited your cheat sheet here! \n'
+        """
         if used_successfully:
             return 'You have deposited your cheat sheet in successfully! \n'
         else:
@@ -181,6 +215,18 @@ class IceCreamSandwich(Item):
         super().__init__(start_location, end_location, points, name)
 
     def print_statement(self, used_successfully: bool) -> str:
+        """
+        return string describing if item is given in the correct location
+        NOTE: doctests cannot be tested because of issue with leading whitespace, they are just show how method works
+
+        Doctests:
+        >>> ice = IceCreamSandwich(0, 0, 0, 'test')
+        >>> ice.print_statement(True)
+        'You have given your ice cream successfully! \nThe suspicious man tells you to SEARCH the rocket in Myhal \
+        center for your lucky pen \n'
+        >>> ice.print_statement(False)
+        'You cannot give your ice cream here! \n'
+        """
         if used_successfully:
             return 'You have given your ice cream successfully! \nThe suspicious man tells you to SEARCH the rocket\
              in Myhal center for your lucky pen \n'
@@ -206,6 +252,17 @@ class Flowers(Item):
         super().__init__(start_location, end_location, points, name)
 
     def print_statement(self, used_successfully: bool) -> str:
+        """
+        return string describing whether or not flowers given at correct location
+        NOTE: doctests cannot be tested because of issue with leading whitespace, they are just show how method works
+
+        Doctests:
+        >>> flower = Flowers(0, 0, 0, 'test')
+        >>> flower.print_statement(True)
+        'You have given your flowers successfully! \nFairgrieve tells you that the answer to Ilias riddle is 42 \n'
+        >>> flower.print_statement(False)
+        'You cannot give your flowers here! \n'
+        """
         if used_successfully:
             return 'You have given your flowers successfully! \nFairgrieve tells you that the answer to Ilias riddle \
              is 42 \n'

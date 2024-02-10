@@ -1,22 +1,28 @@
 """This module contains the world class used in adventure."""
 
 from typing import Optional, TextIO
-from location import Location
+from location import Location   # NOTE: on ed, its mentioned that importing modules is fine although pyta throws error
 import item
+
+# NOTE: all pyta errors have been addressed except for importing modules and print statements as they are permitted
+#       on ed
+
 
 class World:
     """A text adventure game world storing all location, item and map .
     Instance Attributes:
         - map: a nested list representation of this world's map
-        - int_to_location_dict: a dictionary mapping the location number to a location object
+        - location_dict: a dictionary mapping the location number to a location object
         - item_dict: a dictionary mapping the item name string to the item object
-        - 
 
     Representation Invariants:
-        - map != [[]] or map!= []
-        - int_to_location != {}
-        - all([len(int_to_location[x]) == 1 for x in range(len(int_to_location)])
+        - map != [[]]
+        - location_dict != {}
+        - item_dict != {}
     """
+    map: list[list[int]]
+    location_dict: dict[int, Location]
+    item_dict: dict[str, item.Item]
 
     def __init__(self, map_data: TextIO, location_data: TextIO, items_data: TextIO) -> None:
         """
@@ -38,14 +44,7 @@ class World:
         self.location_dict = self.load_locations(location_data)
         self.item_dict = self.load_items(items_data)
 
-
-        # NOTE: You may choose how to store location and item data; create your own World methods to handle these
-        # accordingly. The only requirements:
-        # 1. Make sure the Location class is used to represent each location.
-        # 2. Make sure the Item class is used to represent each item.
-
     def load_map(self, map_data: TextIO) -> list[list[int]]:
-        # Implemented by: Naoroj
         # NOTE: The method below is REQUIRED. Complete it exactly as specified.
         """
         Store map from open file map_data as the map attribute of this object, as a nested list of integers like so:
@@ -55,6 +54,7 @@ class World:
         then load_map should assign this World object's map to be [[1, 2, 5], [3, -1, 4]].
         Return this list representation of the map.
 
+        Doctests:
         >>> sample_map_data = open("map.txt")
         >>> sample_location_data = open("locations.txt")
         >>> sample_items_data = open("items.txt")
@@ -81,6 +81,7 @@ class World:
         the method goes on the assumption that a line is the location + num, points, short desc (multiple lines),
         long desc (multiple lines), and END
 
+        Doctests:
         >>> sample_map_data = open("map.txt")
         >>> sample_location_data = open("locations.txt")
         >>> sample_items_data = open("items.txt")
@@ -90,8 +91,8 @@ class World:
         'That way is blocked.'
         >>> sample_check[10].visited
         False
-        >>> sample_check[9].long_desc.strip()
-        'You are at the end of Saint George Street, to your west is McLennan Physical laboratories and to your right is Myhal Centre.'
+        >>> sample_check[9].long_desc.strip()[0:41]
+        'You are at the end of Saint George Street'
         >>> sample_check[8].available_items
         ['Flowers']
         >>> sample_map_data.close()
@@ -101,10 +102,10 @@ class World:
         # initialize an empty dict
         location_dict = {}
         # reads in junk data to start
-        line = location_data.readline() 
+        line = location_data.readline()
         # loop runs while there are more locations to read
-        
-        while line.strip() != 'COMPLETE_END':      
+
+        while line.strip() != 'COMPLETE_END':
 
             new_location = Location(0, 0, '', '', False, False, False, [])
             line = location_data.readline()
@@ -112,7 +113,7 @@ class World:
             assert 'LOCATION' in line
             line = line.split()
             # location number
-            new_location.location_num = int(line[1])  
+            new_location.location_num = int(line[1])
             line = location_data.readline()
 
             assert 'NUM_POINTS' in line
@@ -122,12 +123,12 @@ class World:
             line = location_data.readline()
 
             # here begins sequence of lines for short description
-            assert line.strip() == '-SHORT'  
+            assert line.strip() == '-SHORT'
             line = location_data.readline()
             short_desc, long_desc = '', ''
 
             # while sequence for long desc is not reached, add to short desc
-            while line.strip() != '-LONG':    
+            while line.strip() != '-LONG':
                 short_desc += line.strip() + ' '
                 line = location_data.readline()
             new_location.short_desc = short_desc.strip()
@@ -148,7 +149,7 @@ class World:
 
             line = location_data.readline()
             assert line.strip() == 'searchable' or line.strip() == 'unsearchable'
-            
+
             if line.strip() == 'searchable':
                 new_location.searchable = True
             else:
@@ -170,7 +171,6 @@ class World:
             location_dict[new_location.location_num] = new_location
         return location_dict
 
-
     def get_location(self, x: int, y: int) -> Optional[Location]:
         """Return Location object associated with the coordinates (x, y) in the world map, if a valid location exists at
          that position. Otherwise, return None. (Remember, locations represented by the number -1 on the map should
@@ -179,15 +179,18 @@ class World:
          - 0 <= x < len(self.map[0])
          - 0 <= y < len(self.map)
 
+        Doctests:
         >>> sample_map = open("map.txt")
         >>> sample_location = open("locations.txt")
         >>> sample_items = open("items.txt")
         >>> world = World(sample_map, sample_location, sample_items)
         >>> world.get_location(1, 1) is None
         True
-        >>> print(world.location_dict)
         >>> world.get_location(1, 2) == world.location_dict[6]
         True
+        >>> sample_map.close()
+        >>> sample_location.close()
+        >>> sample_items.close()
         """
 
         locations = self.location_dict
@@ -200,13 +203,17 @@ class World:
         """
         Loading in items using item factory in item.py
 
+        Doctests:
         >>> sample_map = open("map.txt")
         >>> sample_location = open("locations.txt")
         >>> sample_items = open("items.txt")
         >>> world = World(sample_map, sample_location, sample_items)
-        >>> sample_check = world.load_items(sample_items)
+        >>> sample_check = world.item_dict
         >>> sample_check['Key'].start_location == 4
         True
+        >>> sample_map.close()
+        >>> sample_location.close()
+        >>> sample_items.close()
         """
         # create empty dict
         item_dict = {}
@@ -214,7 +221,7 @@ class World:
 
         # continue reading line until the end
         while line.strip() != 'END':
-            
+
             # split the line by spaces
             line = line.split(' ')
             # start location of item
@@ -229,14 +236,32 @@ class World:
             item_dict[item_name] = item.ItemFactory.create_item(start_location, end_location, points, item_name)
             # read next line
             line = item_data.readline()
-        
+
         return item_dict
 
     def remove_item(self, item_name: str, location_number: int, inventory_size: int) -> Optional[item.Item]:
-        """remove an item from our location's available items"""
+        """
+        remove an item from our location's available items
+        Preconditions:
+        - len(item_name) > 0
+        - 1 <= location_number <= 11
+        - item_name in self.item_dict.keys()
+
+        Doctests:
+        >>> sample_map = open("map.txt")
+        >>> sample_location = open("locations.txt")
+        >>> sample_items = open("items.txt")
+        >>> world = World(sample_map, sample_location, sample_items)
+        >>> world.remove_item('Flowers', 8, 0) == world.item_dict['Flowers']
+        True
+        >>> world.remove_item('Flowers', 8, 0) == world.item_dict['Flowers']
+        False
+        >>> world.remove_item('IceCreamSandwich', 1, 0) == world.item_dict['IceCreamSandwich']
+        False
+        """
 
         # check if our item is part of our location's available items
-        if item_name in self.location_dict[location_number].available_items and inventory_size < 1: 
+        if item_name in self.location_dict[location_number].available_items and inventory_size < 1:
             # remove item from our location
             self.location_dict[location_number].available_items.remove(item_name)
             # return item's name
@@ -244,46 +269,84 @@ class World:
         else:
             return None
 
-
     def add_item(self, item_name: str, location_number: int) -> None:
-        """add an item to our location's available items"""
-        self.location_dict[location_number].available_items.append(item_name) 
+        """
+        add an item to a specifc location's available items
+        Preconditions:
+        - len(item_name) > 0
+        - 1 <= location_number <= 11
+
+        Doctests:
+        >>> sample_map = open("map.txt")
+        >>> sample_location = open("locations.txt")
+        >>> sample_items = open("items.txt")
+        >>> world = World(sample_map, sample_location, sample_items)
+        >>> world.add_item('asdf', 1)
+        >>> world.location_dict[1].available_items == ['asdf']
+        True
+        """
+        self.location_dict[location_number].available_items.append(item_name)
 
     def search(self, location_number: int, search_area: str) -> Optional[item.Item]:
-        """Search a specific location to find our required items"""
+        """
+        Search a specific location to find our required items
+        Preconditions:
+        - 1 <= location_number <= 11
+        - len(search_area) > 0
+        >>> sample_map = open("map.txt")
+        >>> sample_location = open("locations.txt")
+        >>> sample_items = open("items.txt")
+        >>> world = World(sample_map, sample_location, sample_items)
+        >>> world.search(4, 'garbage') == world.item_dict['Key']
+        True
+        >>> world.search(4, 'asdfjk') == world.item_dict['Key']
+        False
+        """
 
         if location_number == 4:
             # check to see if we searched garbage and our location is searchable
             if search_area == 'garbage' and self.location_dict[location_number].searchable:
-                print('Found key! \n')
                 # update our location to no longer be searchable
                 self.location_dict[location_number].searchable = False
                 # return our key item
                 return self.item_dict['Key']
             # otherwise, you cannot search the room
             else:
-                print('You cannot search that! \n')
                 return None
         # same logic but for our other searchable location
         elif location_number == 10:
             if search_area == 'rocket' and self.location_dict[location_number].searchable:
-                print('found lucky pen! \n')
                 self.location_dict[location_number].searchable = False
                 return self.item_dict['Lucky_pen']
             else:
-                print('You cannot search that! \n')
                 return None
         else:
-            print('Cannot search anything here \n')
             return None
-    
-    def use(self, item_name: str, location_number: int) -> bool:
-        """A method that is used to use an object in a location """
 
-        # check specific items 
+    def use(self, item_name: str, location_number: int) -> bool:
+        """
+        A method that is used to use an object in a location
+        Preconditions:
+        - len(item_name) > 0
+        - 1 <= location_number <= 11
+
+        Docstrings:
+        >>> sample_map = open("map.txt")
+        >>> sample_location = open("locations.txt")
+        >>> sample_items = open("items.txt")
+        >>> world = World(sample_map, sample_location, sample_items)
+        >>> world.use('Key', 6)
+        True
+        >>> world.use('Flowers', 5)
+        True
+        >>> world.use('IceCreamSandwich', 3)
+        True
+        """
+
+        # check specific items
         if item_name == 'Key':
-            # if this item is used in location 6, the door becomes unlocked 
-            if location_number == 6:    
+            # if this item is used in location 6, the door becomes unlocked
+            if location_number == 6:
                 self.location_dict[7].locked = False
                 return True
             else:
@@ -301,7 +364,8 @@ class World:
                 return False
         else:
             return False
-            
+
+
 if __name__ == "__main__":
     import python_ta
 

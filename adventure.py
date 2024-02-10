@@ -1,7 +1,5 @@
 from world import World
 from player import Player
-from location import Location
-from item import Item
 
 def parse_input(input: str) -> None:
     """parses the player input and calls the corresponding method in the player
@@ -27,13 +25,11 @@ def parse_input(input: str) -> None:
 
     # error cases
     if len(command) == 0 or (len(command) == 1 and command[0] not in ['inventory', 'quit', 'look', 'score', 'help', '42']):
-        print(f" What \n")
+        print(" What??? \n")
     # handle movement cases
     elif command[0] == 'go':
         if command[1] == 'north' or command[1] == 'south' or command[1] == 'west' or command[1] == 'east':
             game_player.move(command[1], game_world.location_dict)
-        else:
-            print('what, where to go!!!')
 
     # look command
     elif command[0] == 'look':
@@ -56,7 +52,7 @@ def parse_input(input: str) -> None:
         temp = game_world.remove_item(command[1], game_player.game_map[game_player.y][game_player.x], len(game_player.inventory))
         # if there is no removed item object display error message
         if temp is None:
-            print(f'cannot pick up {command[1]}')
+            print(f'cannot pick up {command[1]}, it does not exist or inventory is full. You can carry one item max')
         # otherwise, add the item to our player's inventory
         else:
             game_player.add_item(temp)
@@ -70,8 +66,11 @@ def parse_input(input: str) -> None:
         temp = game_world.search(game_world.map[game_player.y][game_player.x], command[1])
         # if the player finds an object, add to inventory and increase score
         if temp is not None:
+            print(f'found {temp.name}!')
             game_player.add_item(temp)
             game_player.score += temp.points
+        else:
+            print('Cannot search that.')
 
     # use command
     elif command[0] == 'use':
@@ -89,7 +88,7 @@ def parse_input(input: str) -> None:
             if is_success:
                 removed_item = game_player.inventory.pop(item_index)
                 game_player.score += removed_item.points
-        except:
+        except IndexError:
             print('item not in inventory')
 
     # code for when the user enters the correct answer for our math problem
@@ -164,8 +163,8 @@ if __name__ == "__main__":
             print('YOU HAVE DEPOSITED ALL THE ITEMS AND WIN! \n')
             quit()
 
-        # import python_ta
+        import python_ta
 
-        # python_ta.check_all(config={
-        #     'max-line-length': 120,
-        # })
+        python_ta.check_all(config={
+            'max-line-length': 120,
+        })
